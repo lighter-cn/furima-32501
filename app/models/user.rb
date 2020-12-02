@@ -8,7 +8,7 @@ class User < ApplicationRecord
     validates :password
   end
 
-  with_options preserse: true do
+  with_options presence: true do
     validates :name
     validates :birthday
   end
@@ -22,5 +22,4 @@ class User < ApplicationRecord
     validates :last_name_kana
     validates :first_name_kana
   end
-
 end

@@ -17,8 +17,11 @@ class Item < ApplicationRecord
   with_options presence: true do
     validates :name
     validates :explanation
+    validates :image
+  end
+  # with_options presence: true, format: { with: /\d{3,7}/ } do
+  with_options presence: true, format: { with: /[3-9][0-9]{2}|[1-9]\d{3,6}/ }, length: { in: 3..7} do
     validates :price
   end
-  # with_options presence: true, format: { with: /\d{}/ } 
-  # end
+
 end

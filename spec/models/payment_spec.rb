@@ -19,7 +19,7 @@ RSpec.describe Payment, type: :model do
     end
 
     it '郵便番号にハイフンが無いと保存できないこと' do
-      @payment.post_number = 1_234_567
+      @payment.post_number = '1234567'
       @payment.valid?
       expect(@payment.errors.full_messages).to include('Post number is invalid. Include hyphen(-)')
     end

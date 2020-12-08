@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!
   before_action :is_buyer?
-  # before_action :is_sold?
+  before_action :is_sold?
   def index
     @item = Item.find(params[:item_id])
     @payment = Payment.new
@@ -43,7 +43,6 @@ class OrdersController < ApplicationController
 
   def is_sold?
     @item = Item.find(params[:item_id])
-    # もしオーダーに商品のレコードがあれば
-    redirect_to root_path if Order.where(item_id: @item.id)
+    redirect_to root_path unless @item.order.nil?
   end
 end

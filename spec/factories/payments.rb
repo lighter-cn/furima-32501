@@ -1,9 +1,6 @@
 FactoryBot.define do
   factory :payment do
-    card_number { 4242424242424242 }
-    card_exp_month { 3 }
-    card_exp_year { 24 }
-    card_cvc {123}
+    token { 4242424242424242 }
     post_number {123-4567 }
     prefecture_id { 12 }
     city { "歩下市" }

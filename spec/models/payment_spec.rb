@@ -6,6 +6,12 @@ RSpec.describe Payment, type: :model do
       @payment = FactoryBot.build(:payment)
     end
 
+    it 'トークンが空だと保存できないこと' do
+      @payment.token = nil
+      @payment.valid?
+      expect(@payment.errors.full_messages).to include("Token can't be blank")
+    end
+
     it '郵便番号が空だと保存できないこと' do
       @payment.post_number = nil
       @payment.valid?

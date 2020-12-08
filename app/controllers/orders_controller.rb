@@ -1,15 +1,15 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!
+  before_action :find_item
   before_action :is_buyer?
   before_action :is_sold?
+
   def index
-    @item = Item.find(params[:item_id])
     @payment = Payment.new
     @test = Order.where(item_id: @item.id)
   end
 
   def create
-    @item = Item.find(params[:item_id])
     @payment = Payment.new(payment_params)
 
     if @payment.valid?
@@ -37,12 +37,14 @@ class OrdersController < ApplicationController
   end
 
   def is_buyer?
-    @item = Item.find(params[:item_id])
     redirect_to root_path if current_user.id == @item.user.id
   end
 
   def is_sold?
-    @item = Item.find(params[:item_id])
     redirect_to root_path unless @item.order.nil?
+  end
+
+  def find_item
+    @item = Item.find(params[:item_id])
   end
 end

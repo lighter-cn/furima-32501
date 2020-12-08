@@ -23,31 +23,27 @@ class OrdersController < ApplicationController
 
   private
 
-    def payment_params
-      params.require(:payment).permit(:post_number, :prefecture_id, :city, :house_number,:building, :phone_number).merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token])
-    end
+  def payment_params
+    params.require(:payment).permit(:post_number, :prefecture_id, :city, :house_number, :building, :phone_number).merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token])
+  end
 
-    def pay_item
-      Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
-      Payjp::Charge.create(
-        amount: @item.price,
-        card: payment_params[:token],
-        currency: 'jpy'
-      )
-    end
+  def pay_item
+    Payjp.api_key = ENV['PAYJP_SECRET_KEY']
+    Payjp::Charge.create(
+      amount: @item.price,
+      card: payment_params[:token],
+      currency: 'jpy'
+    )
+  end
 
-    def is_buyer?
-      @item = Item.find(params[:item_id])
-      if current_user.id == @item.user.id
-        redirect_to root_path
-      end
-    end
+  def is_buyer?
+    @item = Item.find(params[:item_id])
+    redirect_to root_path if current_user.id == @item.user.id
+  end
 
-    def is_sold?
-      @item = Item.find(params[:item_id])
-      # もしオーダーに商品のレコードがあれば
-      if Order.where(item_id: @item.id)
-        redirect_to root_path
-      end
-    end
+  def is_sold?
+    @item = Item.find(params[:item_id])
+    # もしオーダーに商品のレコードがあれば
+    redirect_to root_path if Order.where(item_id: @item.id)
+  end
 end

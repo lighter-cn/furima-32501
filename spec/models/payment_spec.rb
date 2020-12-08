@@ -19,15 +19,15 @@ RSpec.describe Payment, type: :model do
     end
 
     it '郵便番号にハイフンが無いと保存できないこと' do
-      @payment.post_number = 1234567
+      @payment.post_number = 1_234_567
       @payment.valid?
-      expect(@payment.errors.full_messages).to include("Post number is invalid. Include hyphen(-)")
+      expect(@payment.errors.full_messages).to include('Post number is invalid. Include hyphen(-)')
     end
 
     it '都道府県が空だと保存できないこと' do
       @payment.prefecture_id = 1
       @payment.valid?
-      expect(@payment.errors.full_messages).to include("Prefecture must be other than 1")
+      expect(@payment.errors.full_messages).to include('Prefecture must be other than 1')
     end
 
     it '市区町村が空だと保存できないこと' do
@@ -49,9 +49,9 @@ RSpec.describe Payment, type: :model do
     end
 
     it '電話番号が12桁以上だと保存できないこと' do
-      @payment.phone_number = "090123456789"
+      @payment.phone_number = '090123456789'
       @payment.valid?
-      expect(@payment.errors.full_messages).to include("Phone number is too long (maximum is 11 characters)")
+      expect(@payment.errors.full_messages).to include('Phone number is too long (maximum is 11 characters)')
     end
   end
 end

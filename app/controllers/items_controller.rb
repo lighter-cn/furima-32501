@@ -54,8 +54,6 @@ class ItemsController < ApplicationController
 
   def is_sold?
     @item = Item.find(params[:id])
-    if @item.order != nil
-      redirect_to root_path
-    end
+    redirect_to root_path unless @item.order.nil?
   end
 end

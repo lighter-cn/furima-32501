@@ -17,6 +17,18 @@ RSpec.describe Payment, type: :model do
     end
 
     context "エラー発生時" do
+      it 'user_idが空だと保存できないこと' do
+        @payment.user_id = nil
+        @payment.valid?
+        expect(@payment.errors.full_messages).to include("User can't be blank")
+      end
+
+      it 'item_idが空だと保存できないこと' do
+        @payment.item_id = nil
+        @payment.valid?
+        expect(@payment.errors.full_messages).to include("Item can't be blank")
+      end
+
       it 'トークンが空だと保存できないこと' do
         @payment.token = nil
         @payment.valid?

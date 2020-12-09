@@ -9,6 +9,11 @@ RSpec.describe Payment, type: :model do
       it 'すべての入力項目が問題ない場合購入できる' do
         expect(@payment).to be_valid
       end
+
+      it '建物名(必須ではない項目)の入力項目がない場合でも購入できる' do
+        @payment.building = nil
+        expect(@payment).to be_valid
+      end
     end
 
     context "エラー発生時" do

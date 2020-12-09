@@ -25,6 +25,12 @@ RSpec.describe Payment, type: :model do
     end
 
     it '都道府県が空だと保存できないこと' do
+      @payment.prefecture_id = nil
+      @payment.valid?
+      expect(@payment.errors.full_messages).to include("Prefecture can't be blank")
+    end
+
+    it '都道府県が未選択だと保存できないこと' do
       @payment.prefecture_id = 1
       @payment.valid?
       expect(@payment.errors.full_messages).to include('Prefecture must be other than 1')

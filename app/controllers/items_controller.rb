@@ -53,7 +53,6 @@ class ItemsController < ApplicationController
   end
 
   def is_sold?
-    @item = Item.find(params[:id])
     redirect_to root_path unless @item.order.nil?
   end
 end

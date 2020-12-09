@@ -6,7 +6,6 @@ class OrdersController < ApplicationController
 
   def index
     @payment = Payment.new
-    @test = Order.where(item_id: @item.id)
   end
 
   def create

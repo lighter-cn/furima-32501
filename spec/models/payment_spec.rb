@@ -54,6 +54,12 @@ RSpec.describe Payment, type: :model do
       expect(@payment.errors.full_messages).to include("Phone number can't be blank")
     end
 
+    it '電話番号が英数混合だと保存できないこと' do
+      @payment.phone_number = "090abcd-123"
+      @payment.valid?
+      expect(@payment.errors.full_messages).to include("Phone number is not a number")
+    end
+
     it '電話番号が12桁以上だと保存できないこと' do
       @payment.phone_number = '090123456789'
       @payment.valid?

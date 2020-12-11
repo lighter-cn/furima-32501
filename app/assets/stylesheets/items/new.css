@@ -227,3 +227,7 @@
 .inc {
   font-size: 13px;
 }
+
+.image-list div img {
+  max-width: 100px;
+}
